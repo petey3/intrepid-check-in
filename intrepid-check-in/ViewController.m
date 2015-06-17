@@ -53,10 +53,10 @@
 }
 
 - (CLLocationCoordinate2D)intrepidCenter {
-    CLLocationDegrees longitude = 42.36;
-    CLLocationDegrees lattitude = -71.08;
+    CLLocationDegrees longitude = -71.080171;
+    CLLocationDegrees latitude = 42.367059;
     _intrepidCenter.longitude = longitude;
-    _intrepidCenter.latitude = lattitude;
+    _intrepidCenter.latitude = latitude;
     
     return _intrepidCenter;
 }
@@ -88,6 +88,7 @@
 
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    //TODO: also trigger an alert
     NSLog(@"Arrived at Intrepid!");
 }
 
@@ -97,9 +98,7 @@
         [self.locationManager startMonitoringForRegion:self.intrepidRegion];
         [self.locationManager startUpdatingLocation];
         [self registerNotification];
-        
-        MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.intrepidCenter, 500, 500);
-        [self.mapView setRegion:mapRegion animated:YES];
+        [self setMap];
         
     } else {
         [self.locationManager stopMonitoringForRegion:self.intrepidRegion];
@@ -107,14 +106,57 @@
     }
 }
 
+- (void)setMap {
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.intrepidCenter, 250, 250);
+    MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+    pin.coordinate = self.intrepidCenter;
+    pin.title = @"Intrepid Offices";
+    [self.mapView addAnnotation:pin];
+    [self.mapView setRegion:mapRegion animated:YES];
+}
+
 #pragma mark - UILocalNotification
 - (void)registerNotification {
+    //set up the notification
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = @"You arrived at Intrepid!";
     localNotification.region = self.intrepidRegion;
     localNotification.regionTriggersOnce = YES;
+    
+    //set up the actions for the notification
+    UIMutableUserNotificationAction *acceptAction = [self createAcceptAction];
+    UIMutableUserNotificationAction *declineAction = [self createDeclineAction];
+    UIMutableUserNotificationCategory *notificationCategory = [[UIMutableUserNotificationCategory alloc] init];
+    notificationCategory.identifier = @"CHECK_IN_CATEGORY";
+    NSArray *actions = @[acceptAction, declineAction];
+    [notificationCategory setActions:actions forContext:UIUserNotificationActionContextDefault];
+    [notificationCategory setActions:actions forContext:UIUserNotificationActionContextMinimal];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
+#pragma mark - Notification Actions
+- (UIMutableUserNotificationAction *)createAcceptAction {
+    UIMutableUserNotificationAction *acceptAction = [[UIMutableUserNotificationAction alloc] init];
+    
+    acceptAction.identifier = @"ACCEPT_IDENTIFIER";
+    acceptAction.title = @"Post to Slack";
+    acceptAction.activationMode = UIUserNotificationActivationModeBackground;
+    acceptAction.destructive = NO;
+    acceptAction.authenticationRequired = NO;
+    
+    return acceptAction;
+}
+
+- (UIMutableUserNotificationAction *)createDeclineAction {
+    UIMutableUserNotificationAction *declineAction = [[UIMutableUserNotificationAction alloc] init];
+    
+    declineAction.identifier = @"DECLINE_IDENTIFIER";
+    declineAction.title = @"I know.";
+    declineAction.activationMode = UIUserNotificationActivationModeBackground;
+    declineAction.destructive = NO;
+    declineAction.authenticationRequired = NO;
+    
+    return declineAction;
+}
 
 @end
