@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ICRequestManager.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UISwitch *monitorToggle;
@@ -89,6 +90,7 @@
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     //TODO: also trigger an alert
+    [[ICRequestManager manager] notifySlackArrival];
     NSLog(@"Arrived at Intrepid!");
 }
 
