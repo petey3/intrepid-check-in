@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ICRequestManager.h"
 
 @interface AppDelegate ()
 
@@ -49,15 +50,10 @@
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
     
     if ([identifier isEqualToString:@"ACCEPT_IDENTIFIER"]) {
-        
-        NSLog(@"You chose action 1.");
+        [[ICRequestManager manager] notifySlackArrival];
     }
-    else if ([identifier isEqualToString:@"DECLINE_IDENTIFIER"]) {
-        
-        NSLog(@"You chose action 2.");
-    }
+    else if ([identifier isEqualToString:@"DECLINE_IDENTIFIER"]) {/*decline*/}
     if (completionHandler) {
-        
         completionHandler();
     }
 }

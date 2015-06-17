@@ -10,6 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface ViewController : UIViewController <CLLocationManagerDelegate>
+@interface ViewController : UIViewController
 @end
 

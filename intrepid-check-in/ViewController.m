@@ -8,70 +8,22 @@
 
 #import "ViewController.h"
 #import "ICRequestManager.h"
+#import "ICGeoState.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UISwitch *monitorToggle;
 @property (weak, nonatomic) IBOutlet UILabel *monitorLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLLocation *lastLocation;
-@property (strong, nonatomic) CLCircularRegion *intrepidRegion;
-
-@property (nonatomic) CLLocationCoordinate2D intrepidCenter;
-@property (nonatomic) CLLocationDistance radius;
-@property (strong, nonatomic) NSString *intrepidID;
+@property (strong, nonatomic) ICGeoState *geoState;
 
 @end
 
 @implementation ViewController
 
 #pragma mark - Initializers
-- (CLLocationManager *)locationManager {
-    if(!_locationManager) {
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        [_locationManager requestWhenInUseAuthorization];
-        [_locationManager requestAlwaysAuthorization];
-        _locationManager.distanceFilter = kCLDistanceFilterNone;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    }
-    return _locationManager;
-}
-
-- (CLLocation *)lastLocation {
-    if(!_lastLocation) _lastLocation = [[CLLocation alloc] init];
-    return _lastLocation;
-}
-
-- (CLCircularRegion *)intrepidRegion {
-    if(!_intrepidRegion) {
-        _intrepidRegion = [[CLCircularRegion alloc] initWithCenter:self.intrepidCenter
-                                                            radius:self.radius
-                                                        identifier:self.intrepidID];
-    }
-    return _intrepidRegion;
-}
-
-- (CLLocationCoordinate2D)intrepidCenter {
-    CLLocationDegrees longitude = -71.080171;
-    CLLocationDegrees latitude = 42.367059;
-    _intrepidCenter.longitude = longitude;
-    _intrepidCenter.latitude = latitude;
-    
-    return _intrepidCenter;
-}
-
-- (CLLocationDistance)radius {
-    _radius = 50.0;
-    return _radius;
-}
-
-- (NSString *)intrepidID {
-    if(!_intrepidID) {
-        _intrepidID = @"Intrepid Pursits";
-    }
-    return _intrepidID;
+- (ICGeoState *)geoState {
+    if(!_geoState) _geoState = [[ICGeoState alloc] init];
+    return _geoState;
 }
 
 #pragma mark - ViewControllerDelegate
@@ -87,38 +39,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    //TODO: also trigger an alert
-    [[ICRequestManager manager] notifySlackArrival];
-    NSLog(@"Arrived at Intrepid!");
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    //NSLog(@"Receiving Updates");
-}
-
 #pragma mark - Monitoring
 - (IBAction)toggleMonitoring:(UISwitch *)sender {
     if(sender.on) {
-        [self.locationManager startMonitoringForRegion:self.intrepidRegion];
-        [self.locationManager startUpdatingLocation];
+        [self.geoState.locationManager startMonitoringForRegion:self.geoState.intrepidRegion];
+        [self.geoState.locationManager startUpdatingLocation];
         [self registerNotification];
         [self setMap];
         
     } else {
-        [self.locationManager stopMonitoringForRegion:self.intrepidRegion];
-        [self.locationManager stopUpdatingLocation];
+        [self.geoState.locationManager stopMonitoringForRegion:self.geoState.intrepidRegion];
+        [self.geoState.locationManager stopUpdatingLocation];
     }
-}
-
-- (void)setMap {
-    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.intrepidCenter, 250, 250);
-    MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
-    pin.coordinate = self.intrepidCenter;
-    pin.title = @"Intrepid Offices";
-    [self.mapView addAnnotation:pin];
-    [self.mapView setRegion:mapRegion animated:YES];
 }
 
 #pragma mark - UILocalNotification
@@ -144,7 +76,7 @@
     //set up the notification
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = @"You arrived at Intrepid!";
-    localNotification.region = self.intrepidRegion;
+    localNotification.region = self.geoState.intrepidRegion;
     localNotification.regionTriggersOnce = YES;
     
     localNotification.category = notificationCategory.identifier;
@@ -174,6 +106,16 @@
     declineAction.authenticationRequired = NO;
     
     return declineAction;
+}
+
+#pragma mark - MapKit
+- (void)setMap {
+    MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.geoState.intrepidCenter, 250, 250);
+    MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+    pin.coordinate = self.geoState.intrepidCenter;
+    pin.title = @"Intrepid Offices";
+    [self.mapView addAnnotation:pin];
+    [self.mapView setRegion:mapRegion animated:YES];
 }
 
 @end

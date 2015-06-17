@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		070C13F91B30B6B20068A265 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070C13F81B30B6B20068A265 /* MapKit.framework */; };
 		073A51A81B31FA4700A0B961 /* ICRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 073A51A71B31FA4700A0B961 /* ICRequestManager.m */; };
+		073A51AB1B32091400A0B961 /* ICGeoState.m in Sources */ = {isa = PBXBuildFile; fileRef = 073A51AA1B32091400A0B961 /* ICGeoState.m */; };
 		078B7FB31B3093AE00FBDA96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 078B7FB21B3093AE00FBDA96 /* main.m */; };
 		078B7FB61B3093AE00FBDA96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 078B7FB51B3093AE00FBDA96 /* AppDelegate.m */; };
 		078B7FB91B3093AE00FBDA96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078B7FB81B3093AE00FBDA96 /* ViewController.m */; };
@@ -33,6 +34,8 @@
 		070C13F81B30B6B20068A265 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		073A51A61B31FA4700A0B961 /* ICRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICRequestManager.h; path = Model/ICRequestManager.h; sourceTree = "<group>"; };
 		073A51A71B31FA4700A0B961 /* ICRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICRequestManager.m; path = Model/ICRequestManager.m; sourceTree = "<group>"; };
+		073A51A91B32091400A0B961 /* ICGeoState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICGeoState.h; path = Model/ICGeoState.h; sourceTree = "<group>"; };
+		073A51AA1B32091400A0B961 /* ICGeoState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICGeoState.m; path = Model/ICGeoState.m; sourceTree = "<group>"; };
 		078B7FAD1B3093AE00FBDA96 /* intrepid-check-in.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "intrepid-check-in.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		078B7FB11B3093AE00FBDA96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		078B7FB21B3093AE00FBDA96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 			children = (
 				073A51A61B31FA4700A0B961 /* ICRequestManager.h */,
 				073A51A71B31FA4700A0B961 /* ICRequestManager.m */,
+				073A51A91B32091400A0B961 /* ICGeoState.h */,
+				073A51AA1B32091400A0B961 /* ICGeoState.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -306,6 +311,7 @@
 				078B7FB91B3093AE00FBDA96 /* ViewController.m in Sources */,
 				073A51A81B31FA4700A0B961 /* ICRequestManager.m in Sources */,
 				078B7FB61B3093AE00FBDA96 /* AppDelegate.m in Sources */,
+				073A51AB1B32091400A0B961 /* ICGeoState.m in Sources */,
 				078B7FB31B3093AE00FBDA96 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

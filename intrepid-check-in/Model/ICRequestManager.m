@@ -24,12 +24,19 @@ static const NSString *slackEndPoint = @"https://hooks.slack.com/services/T026B1
 
 #pragma mark - Instance Methods
 - (void) notifySlackArrival {
-    NSDictionary *postDictionary = @{@"text": @"Hey, remind me again who is here"};
+    NSDictionary *postDictionary = @{@"text": @"Don't mind me I'm just testing my super cool code! Maybe I'll write a song about it!",
+                                     @"username": @"Rebecca Black",
+                                     @"icon_url": @"http://i.ytimg.com/vi/kfVsfOSbJY0/maxresdefault.jpg"};
+                                     //@"icon_emoji": @":kiss:"};
     [self postToSlack:postDictionary];
 }
 
 - (void) notifySlackExit {
-    
+    NSDictionary *postDictionary = @{@"text": @"Peace out fans!",
+                                     @"username": @"Rebecca Black",
+                                     @"icon_url": @"http://i.ytimg.com/vi/kfVsfOSbJY0/maxresdefault.jpg"};
+                                     //@"icon_emoji": @":kiss:"};
+    [self postToSlack:postDictionary];
 }
 
 #pragma mark - Network Utilities
