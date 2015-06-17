@@ -91,26 +91,30 @@
     NSLog(@"Arrived at Intrepid!");
 }
 
-/*
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    CLLocation *location = [locations lastObject];
-    //NSLog(@"lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
-}
-*/
-
 #pragma mark - Monitoring
 - (IBAction)toggleMonitoring:(UISwitch *)sender {
     if(sender.on) {
         [self.locationManager startMonitoringForRegion:self.intrepidRegion];
         [self.locationManager startUpdatingLocation];
+        [self registerNotification];
+        
         MKCoordinateRegion mapRegion = MKCoordinateRegionMakeWithDistance(self.intrepidCenter, 500, 500);
         [self.mapView setRegion:mapRegion animated:YES];
+        
     } else {
         [self.locationManager stopMonitoringForRegion:self.intrepidRegion];
         [self.locationManager startUpdatingLocation];
     }
 }
 
+#pragma mark - UILocalNotification
+- (void)registerNotification {
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.alertBody = @"You arrived at Intrepid!";
+    localNotification.region = self.intrepidRegion;
+    localNotification.regionTriggersOnce = YES;
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
 
 
 @end
