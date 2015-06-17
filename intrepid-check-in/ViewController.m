@@ -92,6 +92,10 @@
     NSLog(@"Arrived at Intrepid!");
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    //NSLog(@"Receiving Updates");
+}
+
 #pragma mark - Monitoring
 - (IBAction)toggleMonitoring:(UISwitch *)sender {
     if(sender.on) {
@@ -102,7 +106,7 @@
         
     } else {
         [self.locationManager stopMonitoringForRegion:self.intrepidRegion];
-        [self.locationManager startUpdatingLocation];
+        [self.locationManager stopUpdatingLocation];
     }
 }
 
@@ -117,11 +121,6 @@
 
 #pragma mark - UILocalNotification
 - (void)registerNotification {
-    //set up the notification
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.alertBody = @"You arrived at Intrepid!";
-    localNotification.region = self.intrepidRegion;
-    localNotification.regionTriggersOnce = YES;
     
     //set up the actions for the notification
     UIMutableUserNotificationAction *acceptAction = [self createAcceptAction];
@@ -131,6 +130,22 @@
     NSArray *actions = @[acceptAction, declineAction];
     [notificationCategory setActions:actions forContext:UIUserNotificationActionContextDefault];
     [notificationCategory setActions:actions forContext:UIUserNotificationActionContextMinimal];
+    
+    //set up the setting and register the notification
+    UIUserNotificationType types = (UIUserNotificationTypeAlert|
+                                   UIUserNotificationTypeSound|
+                                   UIUserNotificationTypeBadge);
+    NSSet *categories = [NSSet setWithObject:notificationCategory];
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types
+                                                                             categories:categories];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    //set up the notification
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.alertBody = @"You arrived at Intrepid!";
+    localNotification.region = self.intrepidRegion;
+    localNotification.regionTriggersOnce = YES;
+    
+    localNotification.category = notificationCategory.identifier;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 

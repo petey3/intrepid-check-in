@@ -46,4 +46,20 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    
+    if ([identifier isEqualToString:@"ACCEPT_IDENTIFIER"]) {
+        
+        NSLog(@"You chose action 1.");
+    }
+    else if ([identifier isEqualToString:@"DECLINE_IDENTIFIER"]) {
+        
+        NSLog(@"You chose action 2.");
+    }
+    if (completionHandler) {
+        
+        completionHandler();
+    }
+}
+
 @end

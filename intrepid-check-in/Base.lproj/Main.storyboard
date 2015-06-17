@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -57,16 +58,16 @@
                                 <exclude reference="LSt-o2-cli"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="1FP-Jr-Wa7"/>
-                                <exclude reference="XnL-vW-bzp"/>
-                                <exclude reference="xnv-4L-6LP"/>
                                 <exclude reference="GlV-X8-Uuh"/>
                                 <exclude reference="IHM-BT-HNf"/>
+                                <exclude reference="yPg-4e-uEo"/>
                                 <exclude reference="6bH-KG-EdT"/>
                                 <exclude reference="lFn-Uz-zjR"/>
                                 <exclude reference="oCC-GU-i1f"/>
                                 <exclude reference="sIC-1E-bTr"/>
-                                <exclude reference="yPg-4e-uEo"/>
+                                <exclude reference="1FP-Jr-Wa7"/>
+                                <exclude reference="XnL-vW-bzp"/>
+                                <exclude reference="xnv-4L-6LP"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -76,16 +77,16 @@
                                 <include reference="LSt-o2-cli"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="1FP-Jr-Wa7"/>
-                                <include reference="XnL-vW-bzp"/>
-                                <include reference="xnv-4L-6LP"/>
                                 <include reference="GlV-X8-Uuh"/>
                                 <include reference="IHM-BT-HNf"/>
+                                <include reference="yPg-4e-uEo"/>
                                 <exclude reference="6bH-KG-EdT"/>
                                 <include reference="lFn-Uz-zjR"/>
                                 <exclude reference="oCC-GU-i1f"/>
                                 <include reference="sIC-1E-bTr"/>
-                                <include reference="yPg-4e-uEo"/>
+                                <include reference="1FP-Jr-Wa7"/>
+                                <include reference="XnL-vW-bzp"/>
+                                <include reference="xnv-4L-6LP"/>
                             </mask>
                         </variation>
                     </view>
