@@ -44,14 +44,17 @@
 #pragma mark - Monitoring
 - (IBAction)toggleMonitoring:(UISwitch *)sender {
     if(sender.on) {
+        [self.geoState selfDelegate];
         [self.geoState.locationManager startMonitoringForRegion:self.geoState.intrepidRegion];
         [self.geoState.locationManager startUpdatingLocation];
         [self registerNotification];
         [self setMap];
+        [self.geoState forceRegionCheck];
         
     } else {
         [self.geoState.locationManager stopMonitoringForRegion:self.geoState.intrepidRegion];
         [self.geoState.locationManager stopUpdatingLocation];
+        self.geoState.locationManager.delegate = nil;
     }
 }
 

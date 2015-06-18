@@ -21,7 +21,7 @@
     if(self){
         //Set location manager
         _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
+        _locationManager.delegate = nil;
         [_locationManager requestWhenInUseAuthorization];
         [_locationManager requestAlwaysAuthorization];
         _locationManager.distanceFilter = kCLDistanceFilterNone;
@@ -61,8 +61,38 @@
     return _intrepidID;
 }
 
+-(void)selfDelegate {
+    _locationManager.delegate = self;
+}
+
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    [self enterRegion];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+    [self exitRegion];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    //NSLog(@"Receiving Updates");
+}
+
+#pragma mark - Utility 
+- (void)forceRegionCheck {
+    if(!self.enteredRegion) {
+        CLLocation *currentLocation = self.locationManager.location;
+        CLLocation *center = [[CLLocation alloc] initWithLatitude:self.intrepidCenter.latitude
+                                                        longitude:self.intrepidCenter.longitude];
+        CLLocationDistance distanceFromCenter = [currentLocation distanceFromLocation:center];
+        
+        if(distanceFromCenter <= self.radius) {
+            [self enterRegion];
+        }
+    }
+}
+
+- (void)enterRegion {
     if(self.autoPost) [[ICRequestManager manager] notifySlackArrival];
     if(self.alertInApp) {
         [self.delegate alertInApp];
@@ -71,7 +101,7 @@
     self.enteredRegion = YES;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+- (void)exitRegion {
     if(self.enteredRegion) {
         if(self.autoPost) [[ICRequestManager manager] notifySlackExit];
         
@@ -79,10 +109,6 @@
         //TODO: reregister the notification so we can get it again
         self.enteredRegion = NO;
     }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    //NSLog(@"Receiving Updates");
 }
 
 
