@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISwitch *autoPostToggle;
 @property (strong, nonatomic) ICGeoState *geoState;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewHeight;
 @end
 
 @implementation ViewController
@@ -34,6 +34,7 @@
     self.mapView.layer.borderColor = self.monitorToggle.onTintColor.CGColor;
     self.mapView.layer.borderWidth = 5.0f;
     self.geoState.delegate = self;
+    [self collapseMap];
 }
 
 #pragma mark - Monitoring
@@ -45,11 +46,13 @@
         [self registerNotification];
         [self setMap];
         [self.geoState forceRegionCheck];
+        [self expandMap];
         
     } else {
         [self.geoState.locationManager stopMonitoringForRegion:self.geoState.intrepidRegion];
         [self.geoState.locationManager stopUpdatingLocation];
         self.geoState.locationManager.delegate = nil;
+        [self collapseMap];
     }
 }
 
@@ -164,6 +167,26 @@
     pin.title = @"Intrepid Offices";
     [self.mapView addAnnotation:pin];
     [self.mapView setRegion:mapRegion animated:YES];
+}
+
+#pragma mark - Animations
+- (void)collapseMap {
+    [self.view layoutIfNeeded];
+    
+    self.mapViewHeight.constant = 6;
+    [UIView animateWithDuration:1 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)expandMap {
+    [self.view layoutIfNeeded];
+    
+    CGFloat mapHeight = self.view.frame.size.height - 220;
+    self.mapViewHeight.constant = mapHeight;
+    [UIView animateWithDuration:1 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 @end
