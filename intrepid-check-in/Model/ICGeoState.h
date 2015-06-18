@@ -17,4 +17,6 @@
 @property (nonatomic) CLLocationCoordinate2D intrepidCenter;
 @property (nonatomic) CLLocationDistance radius;
 @property (strong, nonatomic) NSString *intrepidID;
+@property (nonatomic, readonly) BOOL enteredRegion;
+@property (nonatomic) BOOL autoPost;
 @end

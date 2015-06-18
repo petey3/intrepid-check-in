@@ -10,6 +10,7 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 @interface ICRequestManager : NSObject
+@property (nonatomic, readonly) BOOL postedToSlack;
 + (instancetype) manager;
 - (void) notifySlackArrival;
 - (void) notifySlackExit;

@@ -10,7 +10,7 @@
 #import "ICRequestManager.h"
 
 @interface ICGeoState()
-@property (nonatomic) BOOL enteredRegion;
+@property (nonatomic, readwrite) BOOL enteredRegion;
 @end
 
 @implementation ICGeoState
@@ -61,6 +61,8 @@
 
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    if(self.autoPost) [[ICRequestManager manager] notifySlackArrival];
+    
     //TODO: also trigger an alert
     NSLog(@"Arrived at Intrepid!");
     self.enteredRegion = YES;
@@ -68,7 +70,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     if(self.enteredRegion) {
-        [[ICRequestManager manager] notifySlackExit];
+        if(self.autoPost) [[ICRequestManager manager] notifySlackExit];
+        
         NSLog(@"Left Intrepid!");
         //TODO: reregister the notification so we can get it again
         self.enteredRegion = NO;

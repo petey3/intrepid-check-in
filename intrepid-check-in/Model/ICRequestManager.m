@@ -7,8 +7,14 @@
 //
 
 #import "ICRequestManager.h"
+@interface ICRequestManager()
+@property (nonatomic, readwrite) BOOL postedToSlack;
+@end
+
 @implementation ICRequestManager
-static const NSString *slackEndPoint = @"https://hooks.slack.com/services/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";
+static NSString *slackEndPoint = @"https://hooks.slack.com/services/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";
+static NSString *profilePicture = @"https://s3-us-west-2.amazonaws.com/slack-files2/avatars/2015-06-08/6128275456_5d5426e3532b10a50f36_192.jpg";
+static NSString *profileName = @"doyunglee";
 
 #pragma mark - Class Methods
 + (instancetype)manager {
@@ -24,18 +30,16 @@ static const NSString *slackEndPoint = @"https://hooks.slack.com/services/T026B1
 
 #pragma mark - Instance Methods
 - (void) notifySlackArrival {
-    NSDictionary *postDictionary = @{@"text": @"Don't mind me I'm just testing my super cool code! Maybe I'll write a song about it!",
-                                     @"username": @"Rebecca Black",
-                                     @"icon_url": @"http://i.ytimg.com/vi/kfVsfOSbJY0/maxresdefault.jpg"};
-                                     //@"icon_emoji": @":kiss:"};
+    NSDictionary *postDictionary = @{@"text": @"Don't mind me, I'm just Doyung Lee!",
+                                     @"username": profileName,
+                                     @"icon_url": profilePicture};
     [self postToSlack:postDictionary];
 }
 
 - (void) notifySlackExit {
-    NSDictionary *postDictionary = @{@"text": @"Peace out fans!",
-                                     @"username": @"Rebecca Black",
-                                     @"icon_url": @"http://i.ytimg.com/vi/kfVsfOSbJY0/maxresdefault.jpg"};
-                                     //@"icon_emoji": @":kiss:"};
+    NSDictionary *postDictionary = @{@"text": @"Brb",
+                                     @"username": profileName,
+                                     @"icon_url": profilePicture};
     [self postToSlack:postDictionary];
 }
 
@@ -49,10 +53,11 @@ static const NSString *slackEndPoint = @"https://hooks.slack.com/services/T026B1
     //Post the operation
     [manager POST:slackEndPoint parameters:postDictionary
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"success");}
+              self.postedToSlack = YES;
+          }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"failure");
-    }];
+              self.postedToSlack = NO;
+          }];
 }
 
 

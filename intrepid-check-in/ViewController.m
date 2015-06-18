@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *monitorToggle;
 @property (weak, nonatomic) IBOutlet UILabel *monitorLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UISwitch *autoPostToggle;
 @property (strong, nonatomic) ICGeoState *geoState;
 
 @end
@@ -53,6 +54,18 @@
     }
 }
 
+- (IBAction)toggleAutoPost:(UISwitch *)sender {
+    self.geoState.autoPost = sender.on;
+    
+    //If the user has entered the region but did not post
+    //Then turns on auto-post, we will post it for them
+    if(sender.on &&
+       self.geoState.enteredRegion &&
+       ![ICRequestManager manager].postedToSlack) {
+        [[ICRequestManager manager] notifySlackArrival];
+    }
+}
+
 #pragma mark - UILocalNotification
 - (void)registerNotification {
     
@@ -73,11 +86,12 @@
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types
                                                                              categories:categories];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    
     //set up the notification
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = @"You arrived at Intrepid!";
     localNotification.region = self.geoState.intrepidRegion;
-    localNotification.regionTriggersOnce = YES;
+    localNotification.regionTriggersOnce = NO;
     
     localNotification.category = notificationCategory.identifier;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
@@ -88,7 +102,7 @@
     UIMutableUserNotificationAction *acceptAction = [[UIMutableUserNotificationAction alloc] init];
     
     acceptAction.identifier = @"ACCEPT_IDENTIFIER";
-    acceptAction.title = @"Post to Slack";
+    acceptAction.title = @"Post to Slack!";
     acceptAction.activationMode = UIUserNotificationActivationModeBackground;
     acceptAction.destructive = NO;
     acceptAction.authenticationRequired = NO;
