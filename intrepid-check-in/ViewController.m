@@ -95,6 +95,7 @@
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = @"You arrived at Intrepid!";
     localNotification.region = self.geoState.intrepidRegion;
+    localNotification.region.notifyOnExit = NO;
     localNotification.regionTriggersOnce = NO;
     
     localNotification.category = notificationCategory.identifier;

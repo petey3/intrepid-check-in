@@ -50,6 +50,7 @@
         _intrepidRegion = [[CLCircularRegion alloc] initWithCenter:self.intrepidCenter
                                                             radius:self.radius
                                                         identifier:self.intrepidID];
+        _intrepidRegion.notifyOnExit = NO;
     }
     return _intrepidRegion;
 }
