@@ -36,11 +36,6 @@
     self.geoState.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Monitoring
 - (IBAction)toggleMonitoring:(UISwitch *)sender {
     if(sender.on) {
