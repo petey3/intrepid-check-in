@@ -33,6 +33,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.mapView.layer.borderColor = self.monitorToggle.onTintColor.CGColor;
     self.mapView.layer.borderWidth = 5.0f;
+    self.geoState.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,6 +121,40 @@
     declineAction.authenticationRequired = NO;
     
     return declineAction;
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+}
+
+#pragma mark - ICGeoStateDelegate
+- (void)alertInApp {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@"Arrived!"
+                                        message:@"Do you want to post to Slack?"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *post =
+    [UIAlertAction actionWithTitle:@"Yes"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
+                               NSLog(@"Post to slack");
+                               [alert dismissViewControllerAnimated:YES completion:nil];
+                           }];
+    
+    UIAlertAction *ignore =
+    [UIAlertAction actionWithTitle:@"No"
+                             style:UIAlertActionStyleCancel
+                           handler:^(UIAlertAction *action) {
+                               NSLog(@"Ignore slack");
+                               [alert dismissViewControllerAnimated:YES completion:nil];
+                           }];
+    
+    [alert addAction:post];
+    [alert addAction:ignore];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - MapKit

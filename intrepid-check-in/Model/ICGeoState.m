@@ -33,6 +33,8 @@
         
         //Set radius
         _radius = 50.0;
+        
+        _alertInApp = YES;
     }
     
     return self;
@@ -62,8 +64,9 @@
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     if(self.autoPost) [[ICRequestManager manager] notifySlackArrival];
-    
-    //TODO: also trigger an alert
+    if(self.alertInApp) {
+        [self.delegate alertInApp];
+    }
     NSLog(@"Arrived at Intrepid!");
     self.enteredRegion = YES;
 }
