@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *autoPostToggle;
 @property (strong, nonatomic) ICGeoState *geoState;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewVerticalAlignment;
 @end
 
 @implementation ViewController
@@ -174,6 +175,7 @@
     [self.view layoutIfNeeded];
     
     self.mapViewHeight.constant = 6;
+    
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
     }];
@@ -184,6 +186,7 @@
     
     CGFloat mapHeight = self.view.frame.size.height - 220;
     self.mapViewHeight.constant = mapHeight;
+
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
     }];

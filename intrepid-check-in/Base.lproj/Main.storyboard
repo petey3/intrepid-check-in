@@ -20,7 +20,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eII-rQ-oG1">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
                                 <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                                <color key="onTintColor" red="0.93333333333333335" green="0.84705882352941175" blue="0.035294117647058823" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="onTintColor" red="1" green="0.72156862745098038" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="toggleMonitoring:" destination="BYZ-38-t0r" eventType="valueChanged" id="XmS-wI-MiX"/>
                                 </connections>
@@ -49,7 +49,7 @@
                             </mapView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pXY-Nc-8hs">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
-                                <color key="onTintColor" red="0.93333333330000001" green="0.84705882349999995" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="onTintColor" red="1" green="0.72156862749999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="toggleAutoPost:" destination="BYZ-38-t0r" eventType="valueChanged" id="Cd9-52-m1S"/>
                                 </connections>
@@ -63,11 +63,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="check.in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fn4-ee-a5t">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <color key="textColor" red="0.93333333330000001" green="0.84705882349999995" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="0.72156862749999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.22147253787878773" green="0.22147253787878773" blue="0.22147253787878773" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Mmk-zR-Ad1" firstAttribute="top" secondItem="LSt-o2-cli" secondAttribute="bottom" constant="8" id="0ZR-X1-1rl"/>
                             <constraint firstItem="hYb-YX-vZv" firstAttribute="top" secondItem="Mmk-zR-Ad1" secondAttribute="bottom" constant="29" id="2Iz-TB-YUq"/>
@@ -199,6 +199,7 @@
                         <outlet property="autoPostToggle" destination="pXY-Nc-8hs" id="XNM-c1-WvJ"/>
                         <outlet property="mapView" destination="LSt-o2-cli" id="q05-Qv-LMq"/>
                         <outlet property="mapViewHeight" destination="zWh-U3-cei" id="R9a-Ng-H5y"/>
+                        <outlet property="mapViewVerticalAlignment" destination="Qv9-eN-pZK" id="3gJ-zh-YcD"/>
                         <outlet property="monitorLabel" destination="Mmk-zR-Ad1" id="ux2-95-jSj"/>
                         <outlet property="monitorToggle" destination="eII-rQ-oG1" id="2lX-4R-EEo"/>
                     </connections>
