@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "ICGeoState.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIAlertViewDelegate, ICGeoStateDelegate>
 @end
 

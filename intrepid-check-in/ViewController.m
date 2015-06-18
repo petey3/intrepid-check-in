@@ -33,24 +33,23 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.mapView.layer.borderColor = self.monitorToggle.onTintColor.CGColor;
     self.mapView.layer.borderWidth = 5.0f;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.geoState.delegate = self;
 }
 
 #pragma mark - Monitoring
 - (IBAction)toggleMonitoring:(UISwitch *)sender {
     if(sender.on) {
+        [self.geoState selfDelegate];
         [self.geoState.locationManager startMonitoringForRegion:self.geoState.intrepidRegion];
         [self.geoState.locationManager startUpdatingLocation];
         [self registerNotification];
         [self setMap];
+        [self.geoState forceRegionCheck];
         
     } else {
         [self.geoState.locationManager stopMonitoringForRegion:self.geoState.intrepidRegion];
         [self.geoState.locationManager stopUpdatingLocation];
+        self.geoState.locationManager.delegate = nil;
     }
 }
 
@@ -91,6 +90,7 @@
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.alertBody = @"You arrived at Intrepid!";
     localNotification.region = self.geoState.intrepidRegion;
+    localNotification.region.notifyOnExit = NO;
     localNotification.regionTriggersOnce = NO;
     
     localNotification.category = notificationCategory.identifier;
@@ -120,6 +120,40 @@
     declineAction.authenticationRequired = NO;
     
     return declineAction;
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+}
+
+#pragma mark - ICGeoStateDelegate
+- (void)alertInApp {
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@"Arrived!"
+                                        message:@"Do you want to post to Slack?"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *post =
+    [UIAlertAction actionWithTitle:@"Yes"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
+                               NSLog(@"Post to slack");
+                               [alert dismissViewControllerAnimated:YES completion:nil];
+                           }];
+    
+    UIAlertAction *ignore =
+    [UIAlertAction actionWithTitle:@"No"
+                             style:UIAlertActionStyleCancel
+                           handler:^(UIAlertAction *action) {
+                               NSLog(@"Ignore slack");
+                               [alert dismissViewControllerAnimated:YES completion:nil];
+                           }];
+    
+    [alert addAction:post];
+    [alert addAction:ignore];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - MapKit

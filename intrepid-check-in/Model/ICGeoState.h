@@ -10,7 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+@protocol ICGeoStateDelegate;
+
 @interface ICGeoState : NSObject  <CLLocationManagerDelegate>
+
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *lastLocation;
 @property (strong, nonatomic) CLCircularRegion *intrepidRegion;
@@ -19,4 +22,15 @@
 @property (strong, nonatomic) NSString *intrepidID;
 @property (nonatomic, readonly) BOOL enteredRegion;
 @property (nonatomic) BOOL autoPost;
+@property (nonatomic) BOOL alertInApp;
+@property (nonatomic, weak) id <ICGeoStateDelegate> delegate;
+
+- (void)selfDelegate;
+- (void)forceRegionCheck;
+
+@end
+
+//Delegate protocol
+@protocol ICGeoStateDelegate    
+- (void)alertInApp;
 @end

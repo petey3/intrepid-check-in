@@ -49,5 +49,7 @@
 	<string>This application will run location services in the background. </string>
 	<key>NSUserNotificationAlertStyle</key>
 	<string>alert</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
