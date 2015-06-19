@@ -239,6 +239,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="autoLabel" destination="hYb-YX-vZv" id="C1l-qs-2zC"/>
                         <outlet property="autoPostToggle" destination="pXY-Nc-8hs" id="XNM-c1-WvJ"/>
                         <outlet property="headerLabel" destination="fn4-ee-a5t" id="Hbf-tb-Opq"/>
                         <outlet property="mapView" destination="LSt-o2-cli" id="q05-Qv-LMq"/>

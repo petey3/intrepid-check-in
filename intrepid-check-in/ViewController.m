@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *monitorLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISwitch *autoPostToggle;
+@property (weak, nonatomic) IBOutlet UILabel *autoLabel;
+
 @property (strong, nonatomic) ICGeoState *geoState;
 @property (nonatomic) BOOL inSettings;
 
@@ -23,7 +25,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
-//@property (strong, nonatomic) UIColor *goldColor;
+@property (strong, nonatomic) UIColor *goldColor;
+@property (strong, nonatomic) UIColor *darkGrey;
 @end
 
 @implementation ViewController
@@ -38,8 +41,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    //self.goldColor = self.monitorToggle.onTintColor.CGColor
-    self.mapView.layer.borderColor = self.monitorToggle.onTintColor.CGColor;//self.goldColor;
+    if(!_goldColor) self.goldColor = [UIColor colorWithCGColor:self.monitorToggle.onTintColor.CGColor];
+    if(!_darkGrey) self.darkGrey = self.view.backgroundColor;
+    self.mapView.layer.borderColor = self.goldColor.CGColor;
     self.mapView.layer.borderWidth = 5.0f;
     self.geoState.delegate = self;
     [self collapseMap];
@@ -219,11 +223,9 @@
     
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
-        //Set the background to gold
-        //[self.view setBackgroundColor:self.goldColor];
-        
-        //Now set the elements on that to black and white
-        //self.headerLabel.textColor = [UIColor blackColor];
+        [self elementColor:self.darkGrey
+                 textColor:self.darkGrey
+                   bgColor:self.goldColor];
     }];
 }
 
@@ -234,7 +236,25 @@
     
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
+        [self elementColor:self.goldColor
+                 textColor:[UIColor whiteColor]
+                   bgColor:self.darkGrey];
     }];
+}
+
+- (void)elementColor:(UIColor *)elementColor textColor:(UIColor *)textColor bgColor:(UIColor *)bgColor {
+    //Set the background
+    [self.view setBackgroundColor:bgColor];
+    
+    //Set element colors (what should be highlighted in general)
+    self.headerLabel.textColor = elementColor;
+    self.mapView.layer.borderColor = elementColor.CGColor;
+    [self.monitorToggle setOnTintColor:elementColor];
+    [self.autoPostToggle setOnTintColor:elementColor];
+    
+    //Now set the general purpose text
+    self.monitorLabel.textColor = textColor;
+    self.autoLabel.textColor = textColor;
 }
 
 @end
