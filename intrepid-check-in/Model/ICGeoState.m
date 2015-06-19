@@ -8,6 +8,7 @@
 
 #import "ICGeoState.h"
 #import "ICRequestManager.h"
+#import "ICSettings.h"
 
 @interface ICGeoState()
 @property (nonatomic, readwrite) BOOL enteredRegion;
@@ -33,8 +34,6 @@
         
         //Set radius
         _radius = 50.0;
-        
-        _alertInApp = YES;
     }
     
     return self;
@@ -94,8 +93,8 @@
 }
 
 - (void)enterRegion {
-    if(self.autoPost) [[ICRequestManager manager] notifySlackArrival];
-    if(self.alertInApp) {
+    if([ICSettings sharedSettings].autoPost) [[ICRequestManager manager] notifySlackArrival];
+    if([ICSettings sharedSettings].alertInApp) {
         [self.delegate alertInApp];
     }
     NSLog(@"Arrived at Intrepid!");
@@ -104,7 +103,7 @@
 
 - (void)exitRegion {
     if(self.enteredRegion) {
-        if(self.autoPost) [[ICRequestManager manager] notifySlackExit];
+        if([ICSettings sharedSettings].autoPost) [[ICRequestManager manager] notifySlackExit];
         
         NSLog(@"Left Intrepid!");
         //TODO: reregister the notification so we can get it again

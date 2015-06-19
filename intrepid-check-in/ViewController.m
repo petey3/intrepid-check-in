@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "ICRequestManager.h"
 #import "ICGeoState.h"
+#import "ICSettings.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UISwitch *monitorToggle;
@@ -70,7 +71,7 @@
 }
 
 - (IBAction)toggleAutoPost:(UISwitch *)sender {
-    self.geoState.autoPost = sender.on;
+    [ICSettings sharedSettings].autoPost = sender.on;
     
     //If the user has entered the region but did not post
     //Then turns on auto-post, we will post it for them

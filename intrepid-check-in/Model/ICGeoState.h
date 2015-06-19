@@ -21,8 +21,6 @@
 @property (nonatomic) CLLocationDistance radius;
 @property (strong, nonatomic) NSString *intrepidID;
 @property (nonatomic, readonly) BOOL enteredRegion;
-@property (nonatomic) BOOL autoPost;
-@property (nonatomic) BOOL alertInApp;
 @property (nonatomic, weak) id <ICGeoStateDelegate> delegate;
 
 - (void)selfDelegate;
