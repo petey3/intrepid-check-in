@@ -54,9 +54,8 @@
                                 <color key="textColor" red="1" green="0.72156862749999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cv-nW-kQR">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cv-nW-kQR">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="266" id="DEN-U8-VDS">
                                         <variation key="heightClass=regular-widthClass=compact" constant="300"/>
@@ -111,6 +110,7 @@
                             <constraint firstItem="Mmk-zR-Ad1" firstAttribute="top" secondItem="LSt-o2-cli" secondAttribute="bottom" constant="8" id="0ZR-X1-1rl"/>
                             <constraint firstItem="1Cv-nW-kQR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="3xQ-hf-6Tl"/>
                             <constraint firstAttribute="centerY" secondItem="eII-rQ-oG1" secondAttribute="centerY" id="6bH-KG-EdT"/>
+                            <constraint firstAttribute="centerX" secondItem="1Cv-nW-kQR" secondAttribute="centerX" id="6w0-tZ-ey1"/>
                             <constraint firstItem="fn4-ee-a5t" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9ES-H7-ezV"/>
                             <constraint firstItem="LSt-o2-cli" firstAttribute="top" secondItem="fn4-ee-a5t" secondAttribute="bottom" constant="-3" id="9nb-oh-3tj"/>
                             <constraint firstAttribute="centerX" secondItem="8Ee-kv-rF6" secondAttribute="centerX" id="CCt-gj-kKs"/>
@@ -123,6 +123,7 @@
                             <constraint firstItem="eII-rQ-oG1" firstAttribute="leading" secondItem="Mmk-zR-Ad1" secondAttribute="trailing" id="SE6-wM-HtJ">
                                 <variation key="widthClass=compact" constant="8"/>
                             </constraint>
+                            <constraint firstAttribute="width" secondItem="1Cv-nW-kQR" secondAttribute="width" id="SEm-Fb-5dV"/>
                             <constraint firstItem="LSt-o2-cli" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Stw-fc-opW"/>
                             <constraint firstItem="Mmk-zR-Ad1" firstAttribute="top" secondItem="LSt-o2-cli" secondAttribute="bottom" constant="8" id="TaN-1H-D90"/>
                             <constraint firstItem="fn4-ee-a5t" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="TeZ-0G-rGO"/>
@@ -171,7 +172,9 @@
                                 <exclude reference="Uoh-fQ-PtV"/>
                                 <exclude reference="aj3-TV-vg6"/>
                                 <exclude reference="3xQ-hf-6Tl"/>
+                                <exclude reference="6w0-tZ-ey1"/>
                                 <exclude reference="Q52-Dn-VqJ"/>
+                                <exclude reference="SEm-Fb-5dV"/>
                                 <exclude reference="hKx-C6-x9X"/>
                                 <exclude reference="6bH-KG-EdT"/>
                                 <exclude reference="DhP-GM-p6n"/>
@@ -229,9 +232,11 @@
                                 <include reference="8Ee-kv-rF6"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="3xQ-hf-6Tl"/>
+                                <exclude reference="3xQ-hf-6Tl"/>
+                                <include reference="6w0-tZ-ey1"/>
                                 <include reference="Q52-Dn-VqJ"/>
-                                <include reference="hKx-C6-x9X"/>
+                                <include reference="SEm-Fb-5dV"/>
+                                <exclude reference="hKx-C6-x9X"/>
                                 <include reference="CCt-gj-kKs"/>
                                 <include reference="wkt-dQ-cOg"/>
                             </mask>
@@ -245,6 +250,7 @@
                         <outlet property="monitorLabel" destination="Mmk-zR-Ad1" id="ux2-95-jSj"/>
                         <outlet property="monitorToggle" destination="eII-rQ-oG1" id="2lX-4R-EEo"/>
                         <outlet property="settingsButton" destination="8Ee-kv-rF6" id="X1o-eK-Tlk"/>
+                        <outlet property="settingsContainerAlignment" destination="6w0-tZ-ey1" id="Kbu-xd-Hs7"/>
                         <outlet property="settingsContainerView" destination="1Cv-nW-kQR" id="plv-0M-col"/>
                     </connections>
                 </viewController>

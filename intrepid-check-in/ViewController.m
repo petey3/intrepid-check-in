@@ -22,6 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewVerticalAlignment;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *settingsContainerAlignment;
 
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
@@ -50,6 +51,11 @@
     self.geoState.delegate = self;
     [self collapseMap];
     [self hideSettings];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self addSettingsView]; //these should be off screen at start
 }
 
 #pragma mark - IBAction
@@ -204,6 +210,10 @@
     
 }
 
+- (void)removeSettingsView {
+    
+}
+
 #pragma mark - Animations
 - (void)collapseMap {
     [self.view layoutIfNeeded];
@@ -234,7 +244,7 @@
     self.mapViewVerticalAlignment.constant = mapAlignment;
     
     //Add the settings subview
-    [self addSettingsView];
+    self.settingsContainerAlignment.constant = 0;
     
     //Set the settings button background
     [self.settingsButton setBackgroundImage:[UIImage imageNamed:@"gear-black"]
@@ -255,6 +265,9 @@
     self.mapViewVerticalAlignment.constant = 0;
     [self.settingsButton setBackgroundImage:[UIImage imageNamed:@"gear-color"]
                                    forState:UIControlStateNormal];
+    
+    
+    self.settingsContainerAlignment.constant = - self.view.bounds.size.width * 2;
     
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
