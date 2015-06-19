@@ -47,6 +47,7 @@
     self.mapView.layer.borderWidth = 5.0f;
     self.geoState.delegate = self;
     [self collapseMap];
+    [self shiftMapDown];
 }
 
 #pragma mark - IBAction
@@ -58,7 +59,7 @@
         [self registerNotification];
         [self setMap];
         [self.geoState forceRegionCheck];
-        [self expandMap];
+        if(!self.inSettings) [self expandMap];
         
     } else {
         [self.geoState.locationManager stopMonitoringForRegion:self.geoState.intrepidRegion];
@@ -84,9 +85,18 @@
     if(self.inSettings) {
         self.inSettings = NO;
         [self shiftMapDown];
+        
+        if(self.monitorToggle.on) {
+            [self expandMap];
+        }
+        
     } else {
         self.inSettings = YES;
         [self shiftMapUp];
+        
+        if(self.monitorToggle.on) {
+            [self collapseMap];
+        }
     }
 }
 
