@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (strong, nonatomic) UIColor *goldColor;
 @property (strong, nonatomic) UIColor *darkGrey;
+
+@property (weak, nonatomic) IBOutlet UIView *settingsContainerView;
 @end
 
 @implementation ViewController
@@ -196,9 +198,8 @@
     
     ICSettingsViewController *settingsVC = [[ICSettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
     [self addChildViewController:settingsVC];
-    settingsVC.view.frame = self.view.bounds;
-    [self.view addSubview:settingsVC.view];
-    settingsVC.view.backgroundColor = [UIColor greenColor];
+    settingsVC.view.frame = self.settingsContainerView.bounds;
+    [self.settingsContainerView addSubview:settingsVC.view];
     [self didMoveToParentViewController:self];
     
 }
@@ -233,7 +234,7 @@
     self.mapViewVerticalAlignment.constant = mapAlignment;
     
     //Add the settings subview
-    //[self addSettingsView];
+    [self addSettingsView];
     
     //Set the settings button background
     [self.settingsButton setBackgroundImage:[UIImage imageNamed:@"gear-black"]

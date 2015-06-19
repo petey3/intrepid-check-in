@@ -245,6 +245,7 @@
                         <outlet property="monitorLabel" destination="Mmk-zR-Ad1" id="ux2-95-jSj"/>
                         <outlet property="monitorToggle" destination="eII-rQ-oG1" id="2lX-4R-EEo"/>
                         <outlet property="settingsButton" destination="8Ee-kv-rF6" id="X1o-eK-Tlk"/>
+                        <outlet property="settingsContainerView" destination="1Cv-nW-kQR" id="plv-0M-col"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
