@@ -10,13 +10,12 @@
 #import "ICRequestManager.h"
 #import "ICGeoState.h"
 #import "ICSettings.h"
+#import "ICSettingsViewController.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UISwitch *monitorToggle;
 @property (weak, nonatomic) IBOutlet UILabel *monitorLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UISwitch *autoPostToggle;
-@property (weak, nonatomic) IBOutlet UILabel *autoLabel;
 
 @property (strong, nonatomic) ICGeoState *geoState;
 @property (nonatomic) BOOL inSettings;
@@ -48,7 +47,7 @@
     self.mapView.layer.borderWidth = 5.0f;
     self.geoState.delegate = self;
     [self collapseMap];
-    [self shiftMapDown];
+    [self hideSettings];
 }
 
 #pragma mark - IBAction
@@ -70,22 +69,10 @@
     }
 }
 
-- (IBAction)toggleAutoPost:(UISwitch *)sender {
-    [ICSettings sharedSettings].autoPost = sender.on;
-    
-    //If the user has entered the region but did not post
-    //Then turns on auto-post, we will post it for them
-    if(sender.on &&
-       self.geoState.enteredRegion &&
-       ![ICRequestManager manager].postedToSlack) {
-        [[ICRequestManager manager] notifySlackArrival];
-    }
-}
-
 - (IBAction)settingsButton:(UIButton *)sender {
     if(self.inSettings) {
         self.inSettings = NO;
-        [self shiftMapDown];
+        [self hideSettings];
         
         if(self.monitorToggle.on) {
             [self expandMap];
@@ -93,7 +80,7 @@
         
     } else {
         self.inSettings = YES;
-        [self shiftMapUp];
+        [self showSettings];
         
         if(self.monitorToggle.on) {
             [self collapseMap];
@@ -202,12 +189,25 @@
     [self.mapView setRegion:mapRegion animated:YES];
 }
 
+#pragma mark - Subview Utility
+- (void)addSettingsView {
+    //UIView *settingsView = [[[NSBundle mainBundle] loadNibNamed:@"Settings" owner:self options:nil] objectAtIndex:0];
+    //[self.view addSubview:settingsView];
+    
+    ICSettingsViewController *settingsVC = [[ICSettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
+    [self addChildViewController:settingsVC];
+    settingsVC.view.frame = self.view.bounds;
+    [self.view addSubview:settingsVC.view];
+    settingsVC.view.backgroundColor = [UIColor greenColor];
+    [self didMoveToParentViewController:self];
+    
+}
+
 #pragma mark - Animations
 - (void)collapseMap {
     [self.view layoutIfNeeded];
     
     self.mapViewHeight.constant = 6;
-    self.settingsButton.hidden = NO;
     
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
@@ -219,20 +219,26 @@
     
     CGFloat mapHeight = self.view.frame.size.height - 220;
     self.mapViewHeight.constant = mapHeight;
-    self.settingsButton.hidden = YES;
 
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
     }];
 }
 
-- (void)shiftMapUp {
+- (void)showSettings {
     [self.view layoutIfNeeded];
     
+    //Align the map center upwards
     CGFloat mapAlignment = (self.view.frame.size.height / 2) - 100;
     self.mapViewVerticalAlignment.constant = mapAlignment;
+    
+    //Add the settings subview
+    //[self addSettingsView];
+    
+    //Set the settings button background
     [self.settingsButton setBackgroundImage:[UIImage imageNamed:@"gear-black"]
                                    forState:UIControlStateNormal];
+    
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
         [self elementColor:[UIColor blackColor]
@@ -242,7 +248,7 @@
     }];
 }
 
-- (void)shiftMapDown {
+- (void)hideSettings {
     [self.view layoutIfNeeded];
     
     self.mapViewVerticalAlignment.constant = 0;
@@ -266,11 +272,9 @@
     self.headerLabel.textColor = elementColor;
     self.mapView.layer.borderColor = elementColor.CGColor;
     [self.monitorToggle setOnTintColor:elementColor];
-    [self.autoPostToggle setOnTintColor:elementColor];
     
     //Now set the general purpose text
     self.monitorLabel.textColor = textColor;
-    self.autoLabel.textColor = textColor;
 }
 
 @end

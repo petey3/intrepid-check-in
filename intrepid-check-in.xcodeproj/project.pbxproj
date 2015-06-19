@@ -11,6 +11,8 @@
 		073A51A81B31FA4700A0B961 /* ICRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 073A51A71B31FA4700A0B961 /* ICRequestManager.m */; };
 		073A51AB1B32091400A0B961 /* ICGeoState.m in Sources */ = {isa = PBXBuildFile; fileRef = 073A51AA1B32091400A0B961 /* ICGeoState.m */; };
 		073A52181B34813A00A0B961 /* ICSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 073A52171B34813A00A0B961 /* ICSettings.m */; };
+		073A521A1B34850300A0B961 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073A52191B34850300A0B961 /* SettingsView.xib */; };
+		073A521D1B3487BB00A0B961 /* ICSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073A521C1B3487BB00A0B961 /* ICSettingsViewController.m */; };
 		078B7FB31B3093AE00FBDA96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 078B7FB21B3093AE00FBDA96 /* main.m */; };
 		078B7FB61B3093AE00FBDA96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 078B7FB51B3093AE00FBDA96 /* AppDelegate.m */; };
 		078B7FB91B3093AE00FBDA96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078B7FB81B3093AE00FBDA96 /* ViewController.m */; };
@@ -39,6 +41,9 @@
 		073A51AA1B32091400A0B961 /* ICGeoState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICGeoState.m; path = Model/ICGeoState.m; sourceTree = "<group>"; };
 		073A52161B34813A00A0B961 /* ICSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICSettings.h; path = Model/ICSettings.h; sourceTree = "<group>"; };
 		073A52171B34813A00A0B961 /* ICSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ICSettings.m; path = Model/ICSettings.m; sourceTree = "<group>"; };
+		073A52191B34850300A0B961 /* SettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsView.xib; path = Views/SettingsView.xib; sourceTree = "<group>"; };
+		073A521B1B3487BB00A0B961 /* ICSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICSettingsViewController.h; sourceTree = "<group>"; };
+		073A521C1B3487BB00A0B961 /* ICSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICSettingsViewController.m; sourceTree = "<group>"; };
 		078B7FAD1B3093AE00FBDA96 /* intrepid-check-in.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "intrepid-check-in.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		078B7FB11B3093AE00FBDA96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		078B7FB21B3093AE00FBDA96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -82,6 +87,8 @@
 			children = (
 				078B7FB71B3093AE00FBDA96 /* ViewController.h */,
 				078B7FB81B3093AE00FBDA96 /* ViewController.m */,
+				073A521B1B3487BB00A0B961 /* ICSettingsViewController.h */,
+				073A521C1B3487BB00A0B961 /* ICSettingsViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -102,6 +109,7 @@
 		073A51AC1B336AE700A0B961 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				073A52191B34850300A0B961 /* SettingsView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -269,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				078B7FBC1B3093AE00FBDA96 /* Main.storyboard in Resources */,
+				073A521A1B34850300A0B961 /* SettingsView.xib in Resources */,
 				078B7FC11B3093AE00FBDA96 /* LaunchScreen.xib in Resources */,
 				078B7FBE1B3093AE00FBDA96 /* Images.xcassets in Resources */,
 			);
@@ -324,6 +333,7 @@
 				078B7FB91B3093AE00FBDA96 /* ViewController.m in Sources */,
 				073A51A81B31FA4700A0B961 /* ICRequestManager.m in Sources */,
 				078B7FB61B3093AE00FBDA96 /* AppDelegate.m in Sources */,
+				073A521D1B3487BB00A0B961 /* ICSettingsViewController.m in Sources */,
 				073A51AB1B32091400A0B961 /* ICGeoState.m in Sources */,
 				073A52181B34813A00A0B961 /* ICSettings.m in Sources */,
 				078B7FB31B3093AE00FBDA96 /* main.m in Sources */,
