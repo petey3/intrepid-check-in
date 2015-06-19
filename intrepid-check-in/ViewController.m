@@ -222,12 +222,12 @@
     self.mapViewVerticalAlignment.constant = mapAlignment;
     [self.settingsButton setBackgroundImage:[UIImage imageNamed:@"gear-black"]
                                    forState:UIControlStateNormal];
-    
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
         [self elementColor:[UIColor blackColor]
                  textColor:[UIColor blackColor]
                    bgColor:self.goldColor];
+        [self.settingsButton setTransform:CGAffineTransformRotate(self.settingsButton.transform, (M_PI * -0.75))];
     }];
 }
 
@@ -243,6 +243,7 @@
         [self elementColor:self.goldColor
                  textColor:[UIColor whiteColor]
                    bgColor:self.darkGrey];
+        self.settingsButton.transform = CGAffineTransformRotate(self.settingsButton.transform, M_PI*0.75);
     }];
 }
 
