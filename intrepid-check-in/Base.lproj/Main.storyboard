@@ -66,6 +66,35 @@
                                 <color key="textColor" red="1" green="0.72156862749999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ee-kv-rF6">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="BDa-TE-5o7">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="60"/>
+                                    </constraint>
+                                    <constraint firstAttribute="height" constant="30" id="eoc-3w-pFz">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="60"/>
+                                    </constraint>
+                                </constraints>
+                                <state key="normal" backgroundImage="gear">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BDa-TE-5o7"/>
+                                        <exclude reference="eoc-3w-pFz"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="BDa-TE-5o7"/>
+                                        <include reference="eoc-3w-pFz"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="settingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pq9-3r-LtC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.22147253787878773" green="0.22147253787878773" blue="0.22147253787878773" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -74,6 +103,7 @@
                             <constraint firstAttribute="centerY" secondItem="eII-rQ-oG1" secondAttribute="centerY" id="6bH-KG-EdT"/>
                             <constraint firstItem="fn4-ee-a5t" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9ES-H7-ezV"/>
                             <constraint firstItem="LSt-o2-cli" firstAttribute="top" secondItem="fn4-ee-a5t" secondAttribute="bottom" constant="-3" id="9nb-oh-3tj"/>
+                            <constraint firstAttribute="centerX" secondItem="8Ee-kv-rF6" secondAttribute="centerX" id="CCt-gj-kKs"/>
                             <constraint firstItem="eII-rQ-oG1" firstAttribute="leading" secondItem="Mmk-zR-Ad1" secondAttribute="trailing" id="DhP-GM-p6n"/>
                             <constraint firstItem="pXY-Nc-8hs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DkV-rj-8EM"/>
                             <constraint firstItem="eII-rQ-oG1" firstAttribute="leading" secondItem="Mmk-zR-Ad1" secondAttribute="trailing" id="ETY-ak-iSE"/>
@@ -105,6 +135,7 @@
                             <constraint firstItem="pXY-Nc-8hs" firstAttribute="top" secondItem="eII-rQ-oG1" secondAttribute="bottom" constant="22" id="qvH-v1-ASa"/>
                             <constraint firstItem="hYb-YX-vZv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="skR-G9-jfQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LSt-o2-cli" secondAttribute="bottom" constant="108" id="tU7-dP-Zb9"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="8Ee-kv-rF6" secondAttribute="bottom" constant="20" id="wkt-dQ-cOg"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -114,6 +145,7 @@
                                 <exclude reference="pXY-Nc-8hs"/>
                                 <exclude reference="hYb-YX-vZv"/>
                                 <exclude reference="fn4-ee-a5t"/>
+                                <exclude reference="8Ee-kv-rF6"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="9ES-H7-ezV"/>
@@ -143,11 +175,13 @@
                                 <exclude reference="cZr-0u-W7n"/>
                                 <exclude reference="fmA-at-2VW"/>
                                 <exclude reference="oCC-GU-i1f"/>
-                                <exclude reference="tU7-dP-Zb9"/>
                                 <exclude reference="DkV-rj-8EM"/>
                                 <exclude reference="NZB-Ta-ssw"/>
                                 <exclude reference="q4W-Mr-nip"/>
                                 <exclude reference="qvH-v1-ASa"/>
+                                <exclude reference="CCt-gj-kKs"/>
+                                <exclude reference="tU7-dP-Zb9"/>
+                                <exclude reference="wkt-dQ-cOg"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -187,25 +221,39 @@
                                 <exclude reference="cZr-0u-W7n"/>
                                 <include reference="fmA-at-2VW"/>
                                 <exclude reference="oCC-GU-i1f"/>
-                                <exclude reference="tU7-dP-Zb9"/>
                                 <include reference="DkV-rj-8EM"/>
                                 <include reference="NZB-Ta-ssw"/>
                                 <include reference="q4W-Mr-nip"/>
                                 <include reference="qvH-v1-ASa"/>
+                                <exclude reference="tU7-dP-Zb9"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="8Ee-kv-rF6"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="CCt-gj-kKs"/>
+                                <include reference="wkt-dQ-cOg"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="autoPostToggle" destination="pXY-Nc-8hs" id="XNM-c1-WvJ"/>
+                        <outlet property="headerLabel" destination="fn4-ee-a5t" id="Hbf-tb-Opq"/>
                         <outlet property="mapView" destination="LSt-o2-cli" id="q05-Qv-LMq"/>
                         <outlet property="mapViewHeight" destination="zWh-U3-cei" id="R9a-Ng-H5y"/>
                         <outlet property="mapViewVerticalAlignment" destination="Qv9-eN-pZK" id="3gJ-zh-YcD"/>
                         <outlet property="monitorLabel" destination="Mmk-zR-Ad1" id="ux2-95-jSj"/>
                         <outlet property="monitorToggle" destination="eII-rQ-oG1" id="2lX-4R-EEo"/>
+                        <outlet property="settingsButton" destination="8Ee-kv-rF6" id="X1o-eK-Tlk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="gear" width="256" height="256"/>
+    </resources>
 </document>

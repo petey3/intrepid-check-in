@@ -94,6 +94,13 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		073A51AC1B336AE700A0B961 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		078B7FA41B3093AE00FBDA96 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +131,7 @@
 				078B7FBA1B3093AE00FBDA96 /* Main.storyboard */,
 				078B7FBD1B3093AE00FBDA96 /* Images.xcassets */,
 				078B7FBF1B3093AE00FBDA96 /* LaunchScreen.xib */,
+				073A51AC1B336AE700A0B961 /* Views */,
 				078B7FB01B3093AE00FBDA96 /* Supporting Files */,
 			);
 			path = "intrepid-check-in";

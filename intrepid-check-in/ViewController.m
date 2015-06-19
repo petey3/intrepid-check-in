@@ -16,8 +16,14 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISwitch *autoPostToggle;
 @property (strong, nonatomic) ICGeoState *geoState;
+@property (nonatomic) BOOL inSettings;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapViewVerticalAlignment;
+
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
+//@property (strong, nonatomic) UIColor *goldColor;
 @end
 
 @implementation ViewController
@@ -32,13 +38,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.mapView.layer.borderColor = self.monitorToggle.onTintColor.CGColor;
+    //self.goldColor = self.monitorToggle.onTintColor.CGColor
+    self.mapView.layer.borderColor = self.monitorToggle.onTintColor.CGColor;//self.goldColor;
     self.mapView.layer.borderWidth = 5.0f;
     self.geoState.delegate = self;
     [self collapseMap];
 }
 
-#pragma mark - Monitoring
+#pragma mark - IBAction
 - (IBAction)toggleMonitoring:(UISwitch *)sender {
     if(sender.on) {
         [self.geoState selfDelegate];
@@ -66,6 +73,16 @@
        self.geoState.enteredRegion &&
        ![ICRequestManager manager].postedToSlack) {
         [[ICRequestManager manager] notifySlackArrival];
+    }
+}
+
+- (IBAction)settingsButton:(UIButton *)sender {
+    if(self.inSettings) {
+        self.inSettings = NO;
+        [self shiftMapDown];
+    } else {
+        self.inSettings = YES;
+        [self shiftMapUp];
     }
 }
 
@@ -175,6 +192,7 @@
     [self.view layoutIfNeeded];
     
     self.mapViewHeight.constant = 6;
+    self.settingsButton.hidden = NO;
     
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
@@ -186,7 +204,34 @@
     
     CGFloat mapHeight = self.view.frame.size.height - 220;
     self.mapViewHeight.constant = mapHeight;
+    self.settingsButton.hidden = YES;
 
+    [UIView animateWithDuration:1 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)shiftMapUp {
+    [self.view layoutIfNeeded];
+    
+    CGFloat mapAlignment = (self.view.frame.size.height / 2) - 100;
+    self.mapViewVerticalAlignment.constant = mapAlignment;
+    
+    [UIView animateWithDuration:1 animations:^{
+        [self.view layoutIfNeeded];
+        //Set the background to gold
+        //[self.view setBackgroundColor:self.goldColor];
+        
+        //Now set the elements on that to black and white
+        //self.headerLabel.textColor = [UIColor blackColor];
+    }];
+}
+
+- (void)shiftMapDown {
+    [self.view layoutIfNeeded];
+    
+    self.mapViewVerticalAlignment.constant = 0;
+    
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
     }];
