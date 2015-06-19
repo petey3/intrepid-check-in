@@ -220,11 +220,13 @@
     
     CGFloat mapAlignment = (self.view.frame.size.height / 2) - 100;
     self.mapViewVerticalAlignment.constant = mapAlignment;
+    [self.settingsButton setBackgroundImage:[UIImage imageNamed:@"gear-black"]
+                                   forState:UIControlStateNormal];
     
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
-        [self elementColor:self.darkGrey
-                 textColor:self.darkGrey
+        [self elementColor:[UIColor blackColor]
+                 textColor:[UIColor blackColor]
                    bgColor:self.goldColor];
     }];
 }
@@ -233,6 +235,8 @@
     [self.view layoutIfNeeded];
     
     self.mapViewVerticalAlignment.constant = 0;
+    [self.settingsButton setBackgroundImage:[UIImage imageNamed:@"gear-color"]
+                                   forState:UIControlStateNormal];
     
     [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];

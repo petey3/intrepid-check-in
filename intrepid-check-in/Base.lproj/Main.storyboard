@@ -76,7 +76,7 @@
                                         <variation key="heightClass=regular-widthClass=compact" constant="60"/>
                                     </constraint>
                                 </constraints>
-                                <state key="normal" backgroundImage="gear">
+                                <state key="normal" backgroundImage="gear-color">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -255,6 +255,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gear" width="256" height="256"/>
+        <image name="gear-color" width="256" height="256"/>
     </resources>
 </document>
